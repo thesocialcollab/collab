@@ -11,5 +11,3 @@ Welcome to beta v1.0 of collab!
 - Basic ui added
 - Login and register added
 - Text based posting added
-
- /*"homepage": "http://thesocialcollab.github.io/collab",*/
