@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouterRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 
 import { auth } from './firebase';
@@ -16,6 +16,8 @@ import Liked from './components/Pages/Liked';
 import Post from './components/Pages/Post';
 import Dash from './components/Pages/Dashboard';
 import Home from './components/Pages/Home';
+
+import NotFound from './components/Pages/404';
 
 import TextPost from './components/Pages/Post/post_modules/textPost';
 
@@ -111,6 +113,8 @@ function App() {
               <TextPost />
             </PrivateRoute>
           } />
+
+          <Route component={NotFound} />
         </Routes>
         <Menu />
       </div>
