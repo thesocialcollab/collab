@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    color: #333333; /* Dark color for potential text elements */
+  }
+  
+  
+  /* Styles specific to the Logo component when it's inside the header */
+  .logo-container {
+    flex: 1; /* This ensures the logo gets centered */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-container img {
+    max-width: 200px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Optional shadow */
+  }
+  

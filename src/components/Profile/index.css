@@ -1,0 +1,14 @@
+  /* Styles specific to the Profile component when it's inside the header */
+  .profile-container img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid rgb(225, 228, 232); /* A light gray border around profile */
+    margin-left: 20px; /* Some spacing from the right edge */
+
+  }
+  
+  .profile-container:hover img {
+    border: 3px solid rgb(225, 228, 232);
+  }
+  
