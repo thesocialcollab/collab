@@ -13,15 +13,15 @@ function Post() {
   return (
     <div className="post-container">
       <div className="post-item">
-        <img src="./images/icons/tree.png" alt="tree" className="post-icon" />
+        <img src="/images/icons/tree.png" alt="tree" className="post-icon" />
         <p>Image</p>
       </div>
       <div className="post-item">
-        <img src="./images/icons/music.png" alt="Audio" className="post-icon" />
+        <img src="/images/icons/music.png" alt="Audio" className="post-icon" />
         <p>Audio</p>
       </div>
       <div className="post-item" onClick={handleImageClick}>
-        <img src="./images/icons/text.png" alt="Text" className="post-icon" />
+        <img src="/images/icons/text.png" alt="Text" className="post-icon" />
         <p>Text</p>
       </div>
     </div>

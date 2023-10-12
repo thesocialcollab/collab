@@ -6,7 +6,7 @@ function Logo( {onLogoClick}) {
     <div className="logo-container" onClick={onLogoClick}>
       <img src="./images/collablogo1.png" alt="App Logo" />
       <div className="logo-text">
-        Beta 1
+        Beta
       </div>
     </div>
   );
