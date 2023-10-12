@@ -20,7 +20,7 @@ function Menu() {
     return (
         <div className="menu-container">
             <div className="menu-item" onClick={handleLikedClick}>
-                <img src="%PUBLIC_URL%/images/icons/heart.png" alt="Liked" className="icon"/>
+                <img src="./images/icons/heart.png" alt="Liked" className="icon"/>
                 Liked
             </div>
             <div className="menu-item" onClick={handleHomeClick}>
