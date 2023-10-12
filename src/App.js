@@ -83,39 +83,42 @@ function App() {
     <Router>
       <div className="App">
         <Header user={user} />
-        <Routes>
-          <Route path="/login" element={<Login className='login' user={user} setUser={setUser} />} />
-          <Route path="/register" element={<Register className='register' user={user} setUser={setUser} />} />
 
-          {/*home module*/}
-          <Route path="/" element={<Home />} />
+        <div className="main-content">
+          <Routes>
+            <Route path="/login" element={<Login className='login' user={user} setUser={setUser} />} />
+            <Route path="/register" element={<Register className='register' user={user} setUser={setUser} />} />
 
-          {/*menu modules*/}
-          <Route path="/liked" element={
-            <PrivateRoute user={user}>
-              <Liked />
-            </PrivateRoute>
-          } />
-          <Route path="/post" element={
-            <PrivateRoute user={user}>
-                <Post />
-            </PrivateRoute>
-          } />
-          <Route path="/dashboard" element={
-            <PrivateRoute user={user}>
-              <Dash setUser={setUser} />
-            </PrivateRoute>
-          } />
+            {/*home module*/}
+            <Route path="/" element={<Home />} />
 
-          {/* Post Modules */}
-          <Route path="/post/textpost" element={
-            <PrivateRoute user={user}>
-              <TextPost />
-            </PrivateRoute>
-          } />
+            {/*menu modules*/}
+            <Route path="/liked" element={
+              <PrivateRoute user={user}>
+                <Liked />
+              </PrivateRoute>
+            } />
+            <Route path="/post" element={
+              <PrivateRoute user={user}>
+                  <Post />
+              </PrivateRoute>
+            } />
+            <Route path="/dashboard" element={
+              <PrivateRoute user={user}>
+                <Dash setUser={setUser} />
+              </PrivateRoute>
+            } />
 
-          <Route component={NotFound} />
-        </Routes>
+            {/* Post Modules */}
+            <Route path="/post/textpost" element={
+              <PrivateRoute user={user}>
+                <TextPost />
+              </PrivateRoute>
+            } />
+
+            <Route component={NotFound} />
+          </Routes>
+        </div>
         <Menu />
       </div>
     </Router>

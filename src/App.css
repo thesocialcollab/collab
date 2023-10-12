@@ -13,3 +13,7 @@ body, html {
   align-items: center;
   justify-content: center;
 }
+
+.main-content {
+  padding-top: 60px;
+}
