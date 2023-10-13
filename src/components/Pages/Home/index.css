@@ -56,3 +56,38 @@
     background-color: #0056b3; /* Darker blue on hover */
 }
 
+/* buttons */
+
+.sorting-buttons {
+    display: inline-flex;
+    background-color: #eee;  /* Color of the larger oval */
+    border-radius: 25px;  /* Make it oval */
+    padding: 5px 15px;  /* Padding around buttons */
+    margin-bottom: 20px;  /* Space beneath the button group */
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;  /* Smooth transition */
+}
+
+button.active {
+    background-color: #dcdcdc;  /* Color of the smaller oval */
+    border-radius: 15px;  /* Make it oval */
+}
+
+button:hover {
+    background-color: #ccc;
+    border-radius: 15px;
+}
+
+button:focus {
+    outline: none;
+}
+
+
