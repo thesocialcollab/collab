@@ -7,11 +7,7 @@ import {
     limit,
     getDocs,
     addDoc,
-    doc,
-    arrayUnion,
-    arrayRemove,
     deleteDoc,
-    updateDoc,
     where
 } from "firebase/firestore";
 import { auth } from '../../../firebase';
@@ -50,7 +46,7 @@ const Home = () => {
         fetchPosts().then(() => {
             fetchLikedPosts();
         });
-    }, [db, auth.currentUser]);
+    }, [db]);
 
 
     

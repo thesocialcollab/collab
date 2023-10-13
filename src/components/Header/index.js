@@ -6,7 +6,7 @@ import Profile from '../Profile';
 
 function Header({ user }) {
   const navigate = useNavigate();
-  const [image, setImage] = useState('./images/profile.jpg');
+  const [image] = useState('./images/profile.jpg');
 
 
   const handleProfileClick = () => {
