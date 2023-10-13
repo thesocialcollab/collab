@@ -16,9 +16,10 @@ import './index.css';
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState([]);
-    const [selectedSort, setSelectedSort] = useState('latest');
+    const [selectedSort, setSelectedSort] = useState('recommended');
     const db = getFirestore();
 
+    useEffect(() => {
     const fetchPosts = async (type) => {
         let qPosts;
 
@@ -61,7 +62,6 @@ const Home = () => {
         }
     };
 
-    useEffect(() => {
         fetchPosts(selectedSort).then(fetchLikedPosts);
     }, [db, selectedSort]);
 
