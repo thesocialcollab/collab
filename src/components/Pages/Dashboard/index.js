@@ -18,11 +18,15 @@ function Dash({ setUser }) {
     }
   };
 
+  const handleSettings = () => {
+    navigate("/settings");
+  }
+
   return (
     <div className='dashboard-form-container'>
       <h2>Dashboard</h2>
       <div className='dashboard-container'>
-        <div className='dashboard-item'>Settings</div> {/* You can add onClick handlers for settings or navigate to settings page */}
+        <div className='dashboard-item' onClick={handleSettings}>Settings</div> {/* You can add onClick handlers for settings or navigate to settings page */}
         <div className='dashboard-item' onClick={handleLogout}>Logout</div>
       </div>
     </div>

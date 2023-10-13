@@ -3,9 +3,38 @@ body, html {
   padding: 0;
 }
 
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+/* Light Theme */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+}
+
+/* Light theme styles */
+header {
+  background-color: lightgray;
+}
+
+/* Dark theme styles */
+[data-theme='dark'] header {
+  background-color: darkgray;
+}
+
 
 
 .login {

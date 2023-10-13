@@ -21,12 +21,17 @@ import NotFound from './components/Pages/404';
 
 import TextPost from './components/Pages/Post/post_modules/textPost';
 
-function App() {
+import { ThemeProvider, useTheme } from './components/Theme';
+import SettingsComponent from './components/Pages/Settings';
+
+function AppContent() {
   const [user, setUser] = useState(null);
+  const { theme } = useTheme();
 
   function PrivateRoute({ children }) {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -79,6 +84,10 @@ function App() {
   
   
 
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+    }, [theme]);
+
   return (
     <Router>
       <div className="App">
@@ -116,12 +125,26 @@ function App() {
               </PrivateRoute>
             } />
 
+            <Route path="//Settings" element={
+              <PrivateRoute user={user}>
+                <SettingsComponent />
+              </PrivateRoute>
+            } />
+
             <Route component={NotFound} />
           </Routes>
         </div>
         <Menu />
       </div>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Post() {

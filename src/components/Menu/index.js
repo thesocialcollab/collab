@@ -21,15 +21,12 @@ function Menu() {
         <div className="menu-container">
             <div className="menu-item" onClick={handleLikedClick}>
                 <img src="./images/icons/heart.png" alt="Liked" className="icon"/>
-                Liked
             </div>
             <div className="menu-item" onClick={handleHomeClick}>
                 <img src="./images/icons/home.png" alt="Home" className="icon"/>
-                Home
             </div>
             <div className="menu-item" onClick={handlePostClick}>
                 <img src="./images/icons/plus.png" alt="Post" className="icon"/>
-                Post
             </div>
         </div>
     );
