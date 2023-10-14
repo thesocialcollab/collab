@@ -26,7 +26,7 @@ function Menu() {
                 <img src="./images/icons/home.png" alt="Home" className="icon"/>
             </div>
             <div className="menu-item" onClick={handlePostClick}>
-                <img src="./images/icons/plus.png" alt="Post" className="icon"/>
+                <img src="./images/icons/pluscircle.jpg" alt="Post" className="icon"/>
             </div>
         </div>
     );

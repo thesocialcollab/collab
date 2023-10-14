@@ -1,9 +1,10 @@
 .logo-container img {
-    filter: invert(1)
+    width: 80px;
+    height: 80px;
 }
 
 .logo-text {
-    background-color: greenyellow;
+    background-color: orange;
     border-radius: 20%;
     padding: 5px;
     color: white;

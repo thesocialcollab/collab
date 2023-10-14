@@ -24,7 +24,7 @@
   .logo-container {
     flex: 1; /* This ensures the logo gets centered */
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
   }
   
