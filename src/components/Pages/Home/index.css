@@ -58,6 +58,12 @@
     transform: scale(0.95); /* Shrinks slightly */
 }
 
+img.like-button:active, 
+img.like-button:focus {
+  outline: none;
+  /* Optionally, add a different style for better accessibility */
+  box-shadow: none; /* or any other style */
+}
 
 button {
     background-color: transparent;
