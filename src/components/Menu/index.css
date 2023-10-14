@@ -1,8 +1,8 @@
 .menu-container {
     display: flex;
     justify-content: space-between;
+    background-color: #f7f7f7;
     align-items: center;
-    background-color: #ffffff; /* White background, adjust as needed */
     padding: 10px 0px;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for a lifted appearance */
     width: 100%;

@@ -29,32 +29,6 @@
 }
 
 
-/* Existing CSS */
-.like-button {
-    background-color: #ff4500; /* Reddit-like orange color */
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right; /* Align to the right */
-    transition: transform 0.2s, background-color 0.3s; /* Added transition */
-}
-
-.like-button:hover {
-    background-color: #e03e00;
-    transform: scale(0.95); /* Shrinks slightly */
-}
-
-/* Added CSS */
-.like-button:active,
-.liked {
-    background-color: #007bff; /* Blue color */
-}
-
-.liked:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
 
 /* buttons */
 
@@ -65,6 +39,25 @@
     padding: 5px 15px;  /* Padding around buttons */
     margin-bottom: 20px;  /* Space beneath the button group */
 }
+
+/*like heart button*/
+
+.home-container img {
+    background-color: none;
+    border: none;
+    height: 40px;
+    width: 50px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right; /* Align to the right */
+    transition: transform 0.2s, background-color 0.3s; /* Added transition */
+}
+
+.home-container img:hover {
+    transform: scale(0.95); /* Shrinks slightly */
+}
+
 
 button {
     background-color: transparent;

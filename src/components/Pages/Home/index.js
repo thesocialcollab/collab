@@ -127,12 +127,18 @@ const Home = () => {
                 <div key={post.id} className="post-container-item">
                     <h3>{post.username}</h3>
                     <p>{post.text}</p>
-                    <button 
+                    {/*<button 
                         onClick={() => toggleLike(post.id)} 
                         className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`}
                     >
                         {likedPosts.includes(post.id) ? 'Liked' : 'Like'}
-                    </button>
+            </button>*/}
+                    <img 
+                        src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
+                        alt="heart" 
+                        onClick={() => toggleLike(post.id)}  
+                        className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
+                    />
                 </div>
             ))}
         </div>
