@@ -42,7 +42,7 @@
 
 /*like heart button*/
 
-.home-container img {
+img.like-button {
     background-color: none;
     border: none;
     height: 40px;
@@ -54,7 +54,7 @@
     transition: transform 0.2s, background-color 0.3s; /* Added transition */
 }
 
-.home-container img:hover {
+img.like-button:hover {
     transform: scale(0.95); /* Shrinks slightly */
 }
 
@@ -65,28 +65,35 @@ img.like-button:focus {
   box-shadow: none; /* or any other style */
 }
 
-button {
+.sorting-buttons button {
     background-color: transparent;
     border: none;
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;  /* Smooth transition */
+    transition: background-color;  /* Smooth transition */
 }
 
-button.active {
+.sorting-buttons button.active {
     background-color: #dcdcdc;  /* Color of the smaller oval */
     border-radius: 15px;  /* Make it oval */
 }
 
-button:hover {
+.sorting-buttons button:hover {
     background-color: #ccc;
     border-radius: 15px;
 }
 
-button:focus {
+.sorting-buttons button:focus {
     outline: none;
 }
 
 
+.post-image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

@@ -19,8 +19,6 @@ import Home from './components/Pages/Home';
 
 import NotFound from './components/Pages/404';
 
-import TextPost from './components/Pages/Post/post_modules/textPost';
-
 import { ThemeProvider, useTheme } from './components/Theme';
 import SettingsComponent from './components/Pages/Settings';
 
@@ -118,12 +116,6 @@ function AppContent() {
               </PrivateRoute>
             } />
 
-            {/* Post Modules */}
-            <Route path="/post/textpost" element={
-              <PrivateRoute user={user}>
-                <TextPost />
-              </PrivateRoute>
-            } />
 
             <Route path="//Settings" element={
               <PrivateRoute user={user}>

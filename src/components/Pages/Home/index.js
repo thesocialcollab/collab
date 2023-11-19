@@ -127,20 +127,26 @@ const Home = () => {
                 <div key={post.id} className="post-container-item">
                     <h3>{post.username}</h3>
                     <p>{post.text}</p>
-                    {/*<button 
-                        onClick={() => toggleLike(post.id)} 
-                        className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`}
-                    >
-                        {likedPosts.includes(post.id) ? 'Liked' : 'Like'}
-            </button>*/}
-                    <img 
-                        src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
-                        alt="heart" 
-                        onClick={() => toggleLike(post.id)}  
-                        className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
-                    />
+                    {
+                        post.fileType === 'image' && post.fileUrl &&
+                        <img className='post-image' src={post.fileUrl} alt="Post" />
+                    }
+                    {
+                        post.fileType === 'audio' && post.fileUrl &&
+                        <audio controls>
+                            <source src={post.fileUrl} type="audio/mpeg" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    }
+                        <img 
+                            src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
+                            alt="heart" 
+                            onClick={() => toggleLike(post.id)}  
+                            className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
+                        />
                 </div>
             ))}
+
         </div>
     );
 };

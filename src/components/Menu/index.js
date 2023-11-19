@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
 
 function Menu() {
     const navigate = useNavigate();
+    const [activeItem, setActiveItem] = useState("/"); // Default active item
 
-    const handleLikedClick = () => {
-        navigate("/liked");
+    const handleMenuClick = (path) => {
+        navigate(path);
+        setActiveItem(path);
     };
 
-    const handleHomeClick = () => {
-        navigate("/");
-    };
-
-    const handlePostClick = () => {
-        navigate("/post");
+    const isActive = (path) => {
+        return activeItem === path ? 'active' : '';
     };
 
     return (
         <div className="menu-container">
-            <div className="menu-item" onClick={handleLikedClick}>
-                <img src="./images/icons/heart.png" alt="Liked" className="icon"/>
+            <div className={`menu-item ${isActive("/liked")}`} onClick={() => handleMenuClick("/liked")}>
+                <img src="./images/icons/homeheart.png" alt="Liked" className="icon"/>
             </div>
-            <div className="menu-item" onClick={handleHomeClick}>
-                <img src="./images/icons/home.png" alt="Home" className="icon"/>
+            <div className={`menu-item ${isActive("/")}`} onClick={() => handleMenuClick("/")}>
+                <img src="./images/icons/homehouse.png" alt="Home" className="icon"/>
             </div>
-            <div className="menu-item" onClick={handlePostClick}>
-                <img src="./images/icons/pluscircle.jpg" alt="Post" className="icon"/>
+            <div className={`menu-item ${isActive("/post")}`} onClick={() => handleMenuClick("/post")}>
+                <img src="./images/icons/homeplus.png" alt="Post" className="icon"/>
             </div>
         </div>
     );
