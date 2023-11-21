@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { getFirestore, query, collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { auth } from "../../../firebase";  
 import './index.css';
-import SingleLikedPost from "./LikedPosts";
+import Posts from "../../Post-module"; // Adjust this import path as needed
 
 const LikedPosts = () => {
     const [likedPosts, setLikedPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState([]); // State to hold all posts data
     const db = getFirestore();
 
     useEffect(() => {
@@ -14,58 +15,41 @@ const LikedPosts = () => {
                 const userId = auth.currentUser.uid;
                 const userLikesQuery = query(collection(db, "users", userId, "likes"));
                 const likedIds = [];
-                let likedPostsData = [];  // Define likedPostsData
+                let likedPostsData = []; 
         
-                // Get all post IDs that the user has liked
                 const querySnapshotLikes = await getDocs(userLikesQuery);
                 querySnapshotLikes.forEach((likeDoc) => {
                     likedIds.push(likeDoc.data().postId);
                 });
         
-                // Fetch each liked post data only if it's not already in the state
                 const fetchPromises = likedIds.map(postId => {
-                    // Check if the post is already in the state to avoid unnecessary fetches
-                    if (!likedPosts.some(p => p.id === postId)) {
-                        return getDoc(doc(db, "posts", postId));
-                    }
-                    return null;  // Return null for posts that are already fetched
+                    return getDoc(doc(db, "posts", postId));
                 });
         
                 const postSnapshots = await Promise.all(fetchPromises);
-        
-                postSnapshots.forEach((snapshot, index) => {
-                    if (snapshot) {
-                        if (snapshot.exists()) {
-                            likedPostsData.push({ ...snapshot.data(), id: snapshot.id });
-                        }
-                    } else {
-                        // If snapshot is null, the post is already in the state
-                        likedPostsData.push(likedPosts.find(p => p.id === likedIds[index]));
+                postSnapshots.forEach((snapshot) => {
+                    if (snapshot?.exists()) {
+                        likedPostsData.push({ ...snapshot.data(), id: snapshot.id });
                     }
                 });
-        
-                // Remove any potential duplicates before updating state
-                const uniqueLikedPosts = Array.from(new Set(likedPostsData.map(p => p.id)))
-                    .map(id => likedPostsData.find(p => p.id === id));
-        
-                // Only update the state if the posts have changed
-                if (JSON.stringify(uniqueLikedPosts) !== JSON.stringify(likedPosts)) {
-                    setLikedPosts(uniqueLikedPosts);
-                }
+
+                setAllPosts(likedPostsData);
+                setLikedPosts(likedIds); // Just store the IDs of liked posts
             }
         };
-        
-        
-        
 
         fetchLikedPosts();
-    }, [db, likedPosts]);
+    }, [db]);
 
     return (
         <div className="liked-posts-container">
             <h1>Liked Posts</h1>
-            {likedPosts.map((post) => (
-                <SingleLikedPost key={post.id} post={post} />
+            {allPosts.map((post) => (
+                <Posts key={post.id} 
+                       post={post} 
+                       setPosts={setAllPosts} 
+                       likedPosts={likedPosts} 
+                       setLikedPosts={setLikedPosts} />
             ))}
         </div>
     );
