@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { getFirestore, query, collection, where, getDocs, deleteDoc, addDoc } from "firebase/firestore";
+import { getFirestore, query, collection, where, getDocs, deleteDoc, addDoc, getDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { auth } from '../../firebase';
 import PostDropdown from "./dropdown";
 import Comments from "./Comments";
@@ -21,15 +22,37 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
             console.error("User not authenticated!");
             return;
         }
-
+    
         try {
-            await deleteDoc(doc(db, "posts", postId));
-            setPosts(prevPosts => prevPosts.filter(p => p.id !== postId));
-            console.log("Post successfully deleted!");
+            // First, fetch the post data to check for a file
+            const postRef = doc(db, "posts", postId);
+            const postSnap = await getDoc(postRef);
+            
+            if (postSnap.exists()) {
+                const postData = postSnap.data();
+    
+                // Check if there's a file associated with the post
+                if (postData.fileUrl) {
+                    const storage = getStorage();
+                    const fileRef = ref(storage, postData.fileUrl); // Assuming fileUrl is the full path in storage
+    
+                    // Delete the file from Firebase Storage
+                    await deleteObject(fileRef);
+                    console.log("File successfully deleted!");
+                }
+    
+                // Delete the post document from Firestore
+                await deleteDoc(postRef);
+                setPosts(prevPosts => prevPosts.filter(p => p.id !== postId));
+                console.log("Post successfully deleted!");
+            } else {
+                console.error("Post not found!");
+            }
         } catch (error) {
-            console.error("Error deleting post:", error);
+            console.error("Error deleting post or file:", error);
         }
     };
+    
 
     const toggleLike = async (postId) => {
         if (!auth.currentUser) {
