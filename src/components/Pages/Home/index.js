@@ -6,21 +6,21 @@ import {
     orderBy,
     limit,
     getDocs,
-    addDoc,
     deleteDoc,
-    where
+    where,
+    addDoc
 } from "firebase/firestore";
-import { auth } from '../../../firebase';
 import { doc } from "firebase/firestore";
+import { auth } from '../../../firebase';
 import './index.css';
-import PostDropdown from "./dropdown";
-
+import Posts from '../../Post-module';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('recommended');
     const db = getFirestore();
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
 
     /* Dropdown */
     const [activeDropdown, setActiveDropdown] = useState(null);
@@ -53,12 +53,13 @@ const Home = () => {
 
         switch (type) {
             case 'hot':
-                qPosts = query(collection(db, "posts"), orderBy("likes", "desc"), limit(10));
+                /*qPosts = query(collection(db, "posts"), orderBy("likes", "desc"), limit(10));*/
+                qPosts = query(collection(db, "posts"));
                 break;
-            case 'newest':
+            case 'Latest':
                 qPosts = query(collection(db, "posts"), orderBy("timestamp", "desc"), limit(10));
                 break;
-            case 'latest':
+            case 'recommended':
             default:
                 qPosts = query(collection(db, "posts"));
                 break;
@@ -70,7 +71,11 @@ const Home = () => {
             postData.push({ ...doc.data(), id: doc.id });
         });
 
-        if (type === 'latest') {
+        if (type === 'recommended') {
+            postData = postData.sort(() => Math.random() - 0.5);
+        }
+
+        if (type === 'hot') {
             postData = postData.sort(() => Math.random() - 0.5);
         }
 
@@ -99,8 +104,6 @@ const Home = () => {
             return;
         }
 
-
-        const userId = auth.currentUser.uid;
 
 
         if (likedPosts.includes(postId)) {
@@ -149,7 +152,6 @@ const Home = () => {
     posts.forEach(post => {
         console.log(`Post ID: ${post.id}, Post Author ID: ${post.userId}`);
     });
-    
 
     return (
         <div className="home-container">
@@ -159,39 +161,17 @@ const Home = () => {
                 <button onClick={() => setSelectedSort('latest')} className={selectedSort === 'latest' ? 'active' : ''}>Latest</button>
             </div>
             {posts.map((post) => (
-                <div key={post.id} className="post-container-item">
-                    <div className='post-banner'>
-                        <h3>{post.username}</h3>
-                        <div className="dropdown-container">
-                            <button onClick={() => handleDropdownToggle(post.id)}>...</button>
-                            <div className="dropdown-menu">
-                                {activeDropdown === post.id && auth.currentUser?.uid === post.userId && (
-                                    <PostDropdown onDelete={() => handleDeletePost(post.id)} />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <p>{post.text}</p>
-                    {
-                        post.fileType === 'image' && post.fileUrl &&
-                        <img className='post-image' src={post.fileUrl} alt="Post" />
-                    }
-                    {
-                        post.fileType === 'audio' && post.fileUrl &&
-                        <audio controls>
-                            <source src={post.fileUrl} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    }
-                        <img 
-                            src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
-                            alt="heart" 
-                            onClick={() => toggleLike(post.id)}  
-                            className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
-                        />
-                </div>
+                <Posts 
+                    key={post.id}
+                    post={post}
+                    handleDropdownToggle={handleDropdownToggle}
+                    activeDropdown={activeDropdown}
+                    handleDeletePost={handleDeletePost}
+                    toggleLike={toggleLike}
+                    likedPosts={likedPosts}
+                    userId={userId}
+                />
             ))}
-
         </div>
     );
 };

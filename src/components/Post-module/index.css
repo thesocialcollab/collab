@@ -1,0 +1,81 @@
+
+.post-container-item {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.post-container-item:last-child {
+    margin-bottom: 0;
+}
+
+
+/*like heart button*/
+
+img.like-button {
+    background-color: none;
+    border: none;
+    height: 40px;
+    width: 50px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right; /* Align to the right */
+    transition: transform 0.2s, background-color 0.3s; /* Added transition */
+}
+
+img.like-button:hover {
+    transform: scale(0.95); /* Shrinks slightly */
+}
+
+img.like-button:active, 
+img.like-button:focus {
+  outline: none;
+  /* Optionally, add a different style for better accessibility */
+  box-shadow: none; /* or any other style */
+}
+
+
+.post-image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/*post banner*/
+.post-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-banner button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color;  /* Smooth transition */
+}
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-menu { /* This class should be added to your PostDropdown component */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #a5a5a5;
+    top: 100%; /* positions the dropdown right below the button */
+    left: 0;
+    z-index: 1000; /* ensures the dropdown appears above other content */
+    /* add other styling like background, padding, etc. */
+}
