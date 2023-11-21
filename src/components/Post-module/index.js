@@ -3,12 +3,14 @@ import { getFirestore, query, collection, where, getDocs, deleteDoc, addDoc } fr
 import { doc } from "firebase/firestore";
 import { auth } from '../../firebase';
 import PostDropdown from "./dropdown";
+import Comments from "./Comments";
 import './index.css';
 
 const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     const db = getFirestore();
     const [activeDropdown, setActiveDropdown] = useState(null);
     const userId = auth.currentUser ? auth.currentUser.uid : null;
+    const [showComments, setShowComments] = useState(false);
 
     const handleDropdownToggle = (postId) => {
         setActiveDropdown(activeDropdown === postId ? null : postId);
@@ -61,6 +63,11 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
         }
     };
 
+
+    const toggleComments = () => {
+        setShowComments(!showComments);
+    };
+
     return (
         <div className="post-container-item">
             {/* Post content */}
@@ -88,12 +95,23 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                 </audio>
             }
 
-            <img 
-                src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
-                alt="heart" 
-                onClick={() => toggleLike(post.id)} 
-                className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
-            />
+            <div className='post-footer'>
+                <img 
+                    src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
+                    alt="heart" 
+                    onClick={() => toggleLike(post.id)} 
+                    className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
+                />
+                    {/* View Comments Button */}
+                    <button className="view-comments-btn" onClick={toggleComments}>
+                        {showComments ? "Hide Comments" : "View Comments"}
+                    </button>
+
+                <div className='comments-container'>
+                    {/* Comments Component */}
+                    {showComments && <Comments postId={post.id} />}
+                </div>
+            </div>
         </div>
     );
 };

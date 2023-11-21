@@ -1,5 +1,7 @@
 
 .post-container-item {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 10px 15px;
     border: 1px solid #ccc;
@@ -79,3 +81,16 @@ img.like-button:focus {
     z-index: 1000; /* ensures the dropdown appears above other content */
     /* add other styling like background, padding, etc. */
 }
+
+.post-footer button {
+    background-color: transparent;
+    border: none;
+    color: grey;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color;  /* Smooth transition */
+}
+
+
