@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getFirestore, query, collection, where, getDocs, deleteDoc, addDoc, getDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
@@ -12,6 +12,8 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const userId = auth.currentUser ? auth.currentUser.uid : null;
     const [showComments, setShowComments] = useState(false);
+
+    const [likeCount, setLikeCount] = useState(0); // State to store the count of likes
 
     const handleDropdownToggle = (postId) => {
         setActiveDropdown(activeDropdown === postId ? null : postId);
@@ -59,37 +61,68 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
             console.error("User not authenticated!");
             return;
         }
-
-        if (likedPosts.includes(postId)) {
-            // UNLIKE logic
-            try {
-                const q = query(collection(db, "users", userId, "likes"), where("postId", "==", postId));
+    
+        const userId = auth.currentUser.uid; // Get current user's ID
+    
+        try {
+            const userLikeRef = collection(db, "users", userId, "likes");
+            const postLikeRef = collection(db, "posts", postId, "likes");
+    
+            if (likedPosts.includes(postId)) {
+                // UNLIKE logic
+                // Remove like from user's collection
+                const q = query(userLikeRef, where("postId", "==", postId));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach(async (docSnapshot) => {
                     await deleteDoc(docSnapshot.ref);
                 });
+    
+                // Remove user from post's likes collection
+                const qPostLikes = query(postLikeRef, where("userId", "==", userId));
+                const querySnapshotPostLikes = await getDocs(qPostLikes);
+                querySnapshotPostLikes.forEach(async (docSnapshot) => {
+                    await deleteDoc(docSnapshot.ref);
+                });
+    
                 setLikedPosts(prevLiked => prevLiked.filter(id => id !== postId));
-            } catch (error) {
-                console.error("Error unliking post:", error);
-            }
-        } else {
-            // LIKE logic
-            try {
-                await addDoc(collection(db, "users", userId, "likes"), {
+            } else {
+                // LIKE logic
+                // Add like to user's collection
+                await addDoc(userLikeRef, {
                     postId: postId,
                     timestamp: new Date()
                 });
+    
+                // Add user to post's likes collection
+                await addDoc(postLikeRef, {
+                    userId: userId,
+                    timestamp: new Date()
+                });
+    
                 setLikedPosts(prevLiked => [...prevLiked, postId]);
-            } catch (error) {
-                console.error("Error liking post:", error);
             }
+        } catch (error) {
+            console.error("Error liking/unliking post:", error);
         }
     };
+    
 
 
     const toggleComments = () => {
         setShowComments(!showComments);
     };
+
+
+    useEffect(() => {
+        // Fetch the number of likes when the component mounts or post changes
+        const fetchLikeCount = async () => {
+            const postLikeRef = collection(db, "posts", post.id, "likes");
+            const querySnapshot = await getDocs(postLikeRef);
+            setLikeCount(querySnapshot.docs.length); // Set the number of likes
+        };
+
+        fetchLikeCount();
+    }, [post.id, db]);
 
     return (
         <div className="post-container-item">
@@ -121,12 +154,15 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
             </div>
 
             <div className='post-footer'>
-                <img 
+                <div className='likes'>
+                    {likeCount >= 1 && <span>{likeCount}</span>} {/* Conditionally display like count */}
+                    <img 
                     src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
                     alt="heart" 
                     onClick={() => toggleLike(post.id)} 
                     className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 
-                />
+                    />
+                </div>
                     {/* View Comments Button */}
                     <button className="view-comments-btn" onClick={toggleComments}>
                         {showComments ? "Hide Comments" : "View Comments"}
@@ -136,6 +172,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                     {/* Comments Component */}
                     {showComments && <Comments postId={post.id} />}
                 </div>
+                
             </div>
         </div>
     );

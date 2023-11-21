@@ -101,3 +101,9 @@ img.like-button:focus {
 }
 
 
+.likes {
+    display: flex;
+    flex-direction: row;
+    float: right;
+    align-items: center;
+}
