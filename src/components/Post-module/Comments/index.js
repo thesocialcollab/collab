@@ -64,7 +64,7 @@ const Comments = ({ postId }) => {
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..." 
                 />
-                <button type="submit">Comment</button>
+                <button type="submit">➤</button>
             </form>
             {comments.map(comment => (
                 <div key={comment.id} className="comment">
