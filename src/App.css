@@ -30,7 +30,8 @@ a:visited {
 
 
 button, 
-a, 
+a,
+img, 
 input[type="button"], 
 input[type="submit"], 
 input[type="reset"] {
