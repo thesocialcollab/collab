@@ -83,17 +83,19 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                 </div>
             </div>
             <p>{post.text}</p>
-            {
-                post.fileType === 'image' && post.fileUrl &&
-                <img className='post-image' src={post.fileUrl} alt="Post" />
-            }
-            {
-                post.fileType === 'audio' && post.fileUrl &&
-                <audio controls>
-                    <source src={post.fileUrl} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                </audio>
-            }
+            <div className='post-content'>
+                {
+                    post.fileType === 'image' && post.fileUrl &&
+                    <img className='post-image' src={post.fileUrl} alt="Post" />
+                }
+                {
+                    post.fileType === 'audio' && post.fileUrl &&
+                    <audio controls>
+                        <source src={post.fileUrl} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                }
+            </div>
 
             <div className='post-footer'>
                 <img 

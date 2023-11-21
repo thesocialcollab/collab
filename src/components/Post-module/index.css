@@ -42,11 +42,18 @@ img.like-button:focus {
 
 
 .post-image {
-    height: 200px;
-    width: 200px;
+    height: 350px;
+    width: 350px;
     object-fit: cover;
     border-radius: 4px;
     margin-bottom: 10px;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 /*post banner*/
