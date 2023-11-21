@@ -1,7 +1,6 @@
 .comments-container form {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     width: 50%;
     gap: 10px;
     margin-bottom: 20px;
