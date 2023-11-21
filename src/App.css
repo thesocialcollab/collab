@@ -11,7 +11,23 @@ body {
 
 *, *::before, *::after {
   box-sizing: border-box;
+  outline: none;
 }
+
+a {
+  color: black; /* Choose your preferred color */
+  text-decoration: none; /* Removes the underline; adjust as needed */
+  /* Other styles as needed */
+}
+
+a:active {
+  color: black; /* Color for active links */
+}
+
+a:visited {
+  color: black; /* Color for visited links */
+}
+
 
 /* Light Theme */
 :root {
