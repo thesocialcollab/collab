@@ -97,3 +97,36 @@ img.like-button:focus {
     border-radius: 4px;
     margin-bottom: 10px;
 }
+
+/*post banner*/
+.post-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-banner button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color;  /* Smooth transition */
+}
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-menu { /* This class should be added to your PostDropdown component */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #a5a5a5;
+    top: 100%; /* positions the dropdown right below the button */
+    left: 0;
+    z-index: 1000; /* ensures the dropdown appears above other content */
+    /* add other styling like background, padding, etc. */
+}

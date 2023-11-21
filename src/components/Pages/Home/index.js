@@ -11,13 +11,41 @@ import {
     where
 } from "firebase/firestore";
 import { auth } from '../../../firebase';
+import { doc } from "firebase/firestore";
 import './index.css';
+import PostDropdown from "./dropdown";
+
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState([]);
     const [selectedSort, setSelectedSort] = useState('recommended');
     const db = getFirestore();
+
+    /* Dropdown */
+    const [activeDropdown, setActiveDropdown] = useState(null);
+
+    const handleDropdownToggle = (postId) => {
+        setActiveDropdown(activeDropdown === postId ? null : postId);
+    };
+
+    const handleDeletePost = async (postId) => {
+        if (!auth.currentUser) {
+            console.error("User not authenticated!");
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, "posts", postId));
+            setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+            console.log("Post successfully deleted!");
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
+    };
+
+    /* ------ */
+
 
     useEffect(() => {
     const fetchPosts = async (type) => {
@@ -115,6 +143,13 @@ const Home = () => {
         }
     };
 
+    // Place the console logs here, right before the return statement
+    console.log('Current User ID:', auth.currentUser?.uid);
+    console.log('Active Dropdown ID:', activeDropdown);
+    posts.forEach(post => {
+        console.log(`Post ID: ${post.id}, Post Author ID: ${post.userId}`);
+    });
+    
 
     return (
         <div className="home-container">
@@ -125,7 +160,17 @@ const Home = () => {
             </div>
             {posts.map((post) => (
                 <div key={post.id} className="post-container-item">
-                    <h3>{post.username}</h3>
+                    <div className='post-banner'>
+                        <h3>{post.username}</h3>
+                        <div className="dropdown-container">
+                            <button onClick={() => handleDropdownToggle(post.id)}>...</button>
+                            <div className="dropdown-menu">
+                                {activeDropdown === post.id && auth.currentUser?.uid === post.userId && (
+                                    <PostDropdown onDelete={() => handleDeletePost(post.id)} />
+                                )}
+                            </div>
+                        </div>
+                    </div>
                     <p>{post.text}</p>
                     {
                         post.fileType === 'image' && post.fileUrl &&
