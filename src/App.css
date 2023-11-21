@@ -29,6 +29,18 @@ a:visited {
 }
 
 
+button, 
+a, 
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"] {
+    -webkit-tap-highlight-color: transparent; /* For iOS */
+    -webkit-touch-callout: none; /* Prevents iOS from displaying an action sheet when you hold a link */
+    /* Add other styles as necessary */
+    touch-action: manipulation; /* Potentially reduces additional tap feedback */
+}
+
+
 /* Light Theme */
 :root {
   --bg-color: #ffffff;
