@@ -107,3 +107,8 @@ img.like-button:focus {
     float: right;
     align-items: center;
 }
+
+.post-username:hover {
+    cursor: pointer;
+
+}

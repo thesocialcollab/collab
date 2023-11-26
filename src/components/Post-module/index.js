@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import PostDropdown from "./dropdown";
 import Comments from "./Comments";
 import './index.css';
+import { useNavigate } from "react-router-dom";
 
 const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     const db = getFirestore();
@@ -14,6 +15,8 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     const [showComments, setShowComments] = useState(false);
 
     const [likeCount, setLikeCount] = useState(0); // State to store the count of likes
+
+    let navigate = useNavigate();
 
     const handleDropdownToggle = (postId) => {
         setActiveDropdown(activeDropdown === postId ? null : postId);
@@ -124,11 +127,24 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
         fetchLikeCount();
     }, [post.id, db]);
 
+    const handleProfile = () => {
+        // Use the userId from the post object
+        const postUserId = post.userId;
+    
+        if (postUserId) {
+            navigate(`/profile/${postUserId}`); // Navigate to the profile of the user who created the post
+        } else {
+            console.error("Post user ID not found");
+            // Handle the case when the post's user ID is not available
+        }
+    }
+    
+
     return (
         <div className="post-container-item">
             {/* Post content */}
             <div className='post-banner'>
-                <h3>{post.username}</h3>
+                <h3 className="post-username" onClick={handleProfile}>{post.username}</h3>
                 <div className="dropdown-container">
                     <button onClick={() => handleDropdownToggle(post.id)}>...</button>
                     <div className="dropdown-menu">

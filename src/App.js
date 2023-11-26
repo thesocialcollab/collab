@@ -16,6 +16,7 @@ import Liked from './components/Pages/Liked';
 import Post from './components/Pages/Post';
 import Dash from './components/Pages/Dashboard';
 import Home from './components/Pages/Home';
+import Profiles from './components/Pages/Profiles';
 
 import NotFound from './components/Pages/404';
 
@@ -109,6 +110,9 @@ function AppContent() {
               <PrivateRoute user={user}>
                   <Post />
               </PrivateRoute>
+            } />
+            <Route path="/profile/:userId" element={
+                  <Profiles />
             } />
             <Route path="/dashboard" element={
               <PrivateRoute user={user}>

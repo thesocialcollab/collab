@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 import Logo from '../Logo';
@@ -10,10 +11,15 @@ function Header({ user }) {
 
 
   const handleProfileClick = () => {
-    // For now, I'm redirecting to /login regardless of authentication state.
-    // You can later introduce a check to determine whether the user is already logged in.
-    navigate("/dashboard");
-  };
+    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    if (userId) {
+      navigate(`/profile/${userId}`); // Navigate to profile with userId
+      // Or, if using state: navigate('/profile', { state: { userId } });
+    } else {
+      console.error("User not authenticated");
+      // Handle the case when user is not authenticated
+    }
+  }
 
   const handleLogoClick = () => {
     navigate("/");
