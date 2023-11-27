@@ -1,5 +1,8 @@
+@import '../../../colors.css';
+
 .home-container {
     font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
     width: 100%;
     margin: 2rem auto;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -26,7 +29,7 @@
 
 .sorting-buttons {
     display: inline-flex;
-    background-color: #eee;  /* Color of the larger oval */
+    background-color: var(--tertiary-color);  /* Color of the larger oval */
     border-radius: 25px;  /* Make it oval */
     padding: 5px 15px;  /* Padding around buttons */
     margin-bottom: 20px;  /* Space beneath the button group */
@@ -35,6 +38,7 @@
 .sorting-buttons button {
     background-color: transparent;
     border: none;
+    color: var(--font-color);
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;
@@ -43,12 +47,12 @@
 }
 
 .sorting-buttons button.active {
-    background-color: #dcdcdc;  /* Color of the smaller oval */
+    background-color: var(--secondary-color);  /* Color of the smaller oval */
     border-radius: 15px;  /* Make it oval */
 }
 
 .sorting-buttons button:hover {
-    background-color: #ccc;
+    background-color: var(--secondary-color);
     border-radius: 15px;
 }
 

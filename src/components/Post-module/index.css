@@ -1,10 +1,12 @@
+@import '../../colors.css';
 
 .post-container-item {
     display: flex;
     flex-direction: column;
+    background-color: var(--tertiary-color);
     width: 100%;
     padding: 10px 15px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 4px;
     margin-bottom: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
@@ -78,21 +80,26 @@ img.like-button:focus {
     display: inline-block;
 }
 
-
-.dropdown-menu { /* This class should be added to your PostDropdown component */
+.dropdown-menu {
     position: absolute;
-    background-color: white;
-    border: 1px solid #a5a5a5;
-    top: 100%; /* positions the dropdown right below the button */
+    background-color: var(--secondary-color);
+    top: 100%;
     left: 0;
-    z-index: 1000; /* ensures the dropdown appears above other content */
-    /* add other styling like background, padding, etc. */
+    z-index: 1000;
+    display: none; /* Hidden by default */
 }
+
+.dropdown-container .dropdown-menu.active {
+    display: block; /* Shown when active */
+}
+
+
+
 
 .post-footer button {
     background-color: transparent;
     border: none;
-    color: grey;
+    color: var(--font-color);
     padding: 10px 20px;
     margin: 5px;
     font-size: 16px;

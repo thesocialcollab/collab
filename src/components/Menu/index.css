@@ -1,7 +1,9 @@
+@import '../../colors.css';
+
 .menu-container {
   display: flex;
   justify-content: space-between;
-  background-color: #f7f7f7;
+  background-color: var(--background-color);
   align-items: center;
   padding: 10px 0px;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -31,6 +33,7 @@
   width: 32px;
   height: 30px;
   margin-bottom: 5px;
+  filter: brightness(0) invert(1) saturate(0);
 }
 
 /* Style for the active menu item */

@@ -147,8 +147,8 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                 <h3 className="post-username" onClick={handleProfile}>{post.username}</h3>
                 <div className="dropdown-container">
                     <button onClick={() => handleDropdownToggle(post.id)}>...</button>
-                    <div className="dropdown-menu">
-                        {activeDropdown === post.id && userId === post.userId && (
+                    <div className={`dropdown-menu ${activeDropdown === post.id ? 'active' : ''}`}>
+                        {userId === post.userId && (
                             <PostDropdown onDelete={() => handleDeletePost(post.id)} />
                         )}
                     </div>

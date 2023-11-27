@@ -1,0 +1,11 @@
+/* colors.css */
+
+:root {
+    --primary-color: #4c4c4c;   /* Example primary color */
+    --secondary-color: #2e2e31; /* Example secondary color */
+    --tertiary-color: #1f1f22;    /* Example accent color */
+    --background-color: #151515; /* Example background color */
+    --font-color: #ffffff;      /* Example text color */
+    /* Add more colors as needed */
+  }
+  
