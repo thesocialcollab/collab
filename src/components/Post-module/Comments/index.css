@@ -1,3 +1,5 @@
+@import '../../../colors.css';
+
 .comments-container form {
     display: flex;
     align-items: center;
@@ -18,13 +20,13 @@
 
 .comments-container input[type="text"]:focus {
     outline: none;
-    border-color: #007bff; /* Highlight color when focused */
+    border-color: #ff6a00; /* Highlight color when focused */
 }
 
 .comments-container button[type="submit"] {
     display: flex;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -34,5 +36,5 @@
 }
 
 .comments-container button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-color);
 }
