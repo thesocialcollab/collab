@@ -42,7 +42,6 @@ function Post() {
                 console.error("User document doesn't exist!");
                 return;
             }
-            const username = userSnap.data().username;
 
             let fileUrl = null;
             if (fileToUpload) {
@@ -54,7 +53,6 @@ function Post() {
 
             await addDoc(collection(db, "posts"), {
                 userId,
-                username,
                 text,
                 fileUrl, // store file URL with the post
                 fileType: fileToUpload ? fileToUpload.type.split('/')[0] : null, // 'audio' or 'image'

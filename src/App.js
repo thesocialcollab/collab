@@ -17,6 +17,7 @@ import Post from './components/Pages/Post';
 import Dash from './components/Pages/Dashboard';
 import Home from './components/Pages/Home';
 import Profiles from './components/Pages/Profiles';
+import EditProfile from './components/Pages/Profiles/Edit-Profile';
 
 import NotFound from './components/Pages/404';
 
@@ -114,6 +115,13 @@ function AppContent() {
             <Route path="/profile/:userId" element={
                   <Profiles />
             } />
+
+            <Route path="/profile/:userId/edit" element={
+              <PrivateRoute user={user}>
+                <EditProfile />
+              </PrivateRoute>
+            } />
+
             <Route path="/dashboard" element={
               <PrivateRoute user={user}>
                 <Dash setUser={setUser} />

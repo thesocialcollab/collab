@@ -54,16 +54,21 @@ const Profiles = () => {
     navigate("/dashboard");
   }
 
+  const handleEditProfile = () => {
+    navigate(`/profile/${userId}/edit`);
+  }
+
   return (
     <div className="user-profile-container">
         <h1 className="user-profile-header">Profile</h1>
         <div className="user-profile-info">
             <p>Name: {userData.username}</p>
             <p>Email: {userData.email}</p>
+            <p>Bio: {userData.bio || "No bio provided"}</p>
         </div>
         {isOwner && (
             <div className="user-profile-actions">
-            <button className="user-profile-button">Edit Profile</button>
+            <button className="user-profile-button" onClick={handleEditProfile}>Edit Profile</button>
             <button className="user-profile-button" onClick={handleDashboard}>Dashboard</button>
             </div>
         )}

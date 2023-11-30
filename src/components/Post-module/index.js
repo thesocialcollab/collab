@@ -15,8 +15,23 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     const [showComments, setShowComments] = useState(false);
 
     const [likeCount, setLikeCount] = useState(0); // State to store the count of likes
+    const [username, setUsername] = useState('');
 
     let navigate = useNavigate();
+
+
+    useEffect(() => {
+        const fetchUsername = async () => {
+          const userDoc = await getDoc(doc(db, 'users', post.userId));
+          if (userDoc.exists()) {
+            setUsername(userDoc.data().username);
+          } else {
+            console.error("User not found");
+          }
+        };
+      
+        fetchUsername();
+      }, [db, post.userId]);
 
     const handleDropdownToggle = (postId) => {
         setActiveDropdown(activeDropdown === postId ? null : postId);
@@ -144,7 +159,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
         <div className="post-container-item">
             {/* Post content */}
             <div className='post-banner'>
-                <h3 className="post-username" onClick={handleProfile}>{post.username}</h3>
+                <h3 className="post-username" onClick={handleProfile}>{username}</h3>
                 <div className="dropdown-container">
                     <button onClick={() => handleDropdownToggle(post.id)}>...</button>
                     <div className={`dropdown-menu ${activeDropdown === post.id ? 'active' : ''}`}>

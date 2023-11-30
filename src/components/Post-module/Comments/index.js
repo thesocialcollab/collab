@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { getFirestore, collection, query, getDocs, addDoc, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, query, getDocs, addDoc, getDoc, doc as firestoreDoc } from "firebase/firestore";
 import { auth } from '../../../firebase';
 import './index.css';
 
@@ -7,49 +7,57 @@ const Comments = ({ postId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const db = getFirestore();
-    const [username, setUsername] = useState("Anonymous"); // Replace with actual username logic
+    const [userId, setUserId] = useState(null);
 
-    // Use useCallback to memoize fetchComments
+    useEffect(() => {
+        if (auth.currentUser) {
+            setUserId(auth.currentUser.uid);
+        }
+    }, []);
+
     const fetchComments = useCallback(async () => {
         const commentsQuery = query(collection(db, "posts", postId, "comments"));
         const querySnapshot = await getDocs(commentsQuery);
-        const fetchedComments = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-        setComments(fetchedComments);
+
+        if (!querySnapshot.empty) {
+            const commentsWithUsernames = await Promise.all(querySnapshot.docs.map(async (docSnapshot) => {
+                const commentData = docSnapshot.data();
+                let username = "Anonymous";
+
+                if (commentData.userId) {
+                    const userRef = firestoreDoc(db, "users", commentData.userId);
+                    const userSnap = await getDoc(userRef);
+                    if (userSnap.exists()) {
+                        username = userSnap.data().username || "Anonymous";
+                    }
+                }
+
+                return { ...commentData, id: docSnapshot.id, username };
+            }));
+
+            setComments(commentsWithUsernames);
+        } else {
+            setComments([]);
+        }
     }, [db, postId]);
 
+    // Add useEffect hook to call fetchComments when the component mounts
     useEffect(() => {
         fetchComments();
     }, [fetchComments]);
 
-    // Fetch username
-
-    useEffect(() => {
-        const fetchUsername = async () => {
-            if (auth.currentUser) {
-                const userRef = doc(db, "users", auth.currentUser.uid);
-                const userSnap = await getDoc(userRef);
-                if (userSnap.exists()) {
-                    setUsername(userSnap.data().username || "Anonymous");
-                }
-            }
-        };
-
-        fetchUsername();
-    }, [db]);
-
-
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        if (newComment.trim() === "") return; // Prevent empty comments
+        if (newComment.trim() === "") return;
 
         try {
             await addDoc(collection(db, "posts", postId, "comments"), {
                 text: newComment,
-                username: username, // Adding username to the comment
+                userId: userId,
                 timestamp: new Date()
             });
-            setNewComment(""); // Clear input field after submission
-            fetchComments(); // Fetch comments again to include the new one
+            setNewComment("");
+            fetchComments();
         } catch (error) {
             console.error("Error adding comment:", error);
         }
