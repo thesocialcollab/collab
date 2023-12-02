@@ -1,14 +1,14 @@
 import React from "react";
-import { getMessaging, getToken } from "firebase/messaging";
-import { getAuth } from "firebase/auth";
+/*import { getMessaging, getToken } from "firebase/messaging";
+import { getAuth } from "firebase/auth";*/
 import { useTheme } from "../../Theme";
 import './index.css';
 
 const SettingsComponent = () => {
     const { theme, setTheme } = useTheme();
 
-    const auth = getAuth();
-    const userId = auth.currentUser ? auth.currentUser.uid : null;
+    /*const auth = getAuth();
+    const userId = auth.currentUser ? auth.currentUser.uid : null;*/
 
     const handleThemeToggle = (event) => {
         // Using the checked property of the checkbox to determine the next theme
