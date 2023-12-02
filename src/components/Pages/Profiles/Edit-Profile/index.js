@@ -9,6 +9,10 @@ const EditProfile = () => {
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
 
+    const [editUsername, setEditUsername] = useState(false);
+    const [editEmail, setEditEmail] = useState(false);
+    const [editBio, setEditBio] = useState(false);
+
     const db = getFirestore();
     const auth = getAuth();
     const userId = auth.currentUser.uid;
@@ -57,31 +61,52 @@ const EditProfile = () => {
   };
 
 
-    return (
-      <div className="edit-profile-container">
-        <h2 className="edit-profile-header">Edit Profile</h2>
-        <form className="edit-profile-form" onSubmit={handleSubmit}>
-          <label>
-            Username:
+  return (
+    <div className="edit-profile-container">
+      <h2 className="edit-profile-header">Edit Profile</h2>
+      <form className="edit-profile-form" onSubmit={handleSubmit}>
+        <label>
+          Username:
+          {editUsername ? (
             <input type="text" value={username} onChange={handleUsernameChange} />
-          </label>
-          <br />
-          <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
-          </label>
-          <br />
-          <label>
-            Bio:
-            <textarea value={bio} onChange={handleBioChange} />
-          </label>
-          <br />
-          <div className="edit-profile-actions">
-            <button className="edit-profile-button" type="submit">Save Changes</button>
-          </div>
-        </form>
-      </div>
+          ) : (
+            <span>{username}</span>
+          )}
+          <button type="button" onClick={() => setEditUsername(!editUsername)}>
+            {editUsername ? 'Done' : 'Edit'}
+          </button>
+        </label>
+        <br />
+        <label>
+          Email:
+          {editEmail ? (
+            <input type="text" value={email} onChange={handleEmailChange} />
+          ) : (
+            <span>{email}</span>
+          )}
+          <button type="button" onClick={() => setEditEmail(!editEmail)}>
+            {editEmail ? 'Done' : 'Edit'}
+          </button>
+        </label>
+        <br />
+        <label>
+          Bio:
+          {editBio ? (
+            <input type="text" value={bio} onChange={handleBioChange} />
+          ) : (
+            <span>{bio}</span>
+          )}
+          <button type="button" onClick={() => setEditBio(!editBio)}>
+            {editBio ? 'Done' : 'Edit'}
+          </button>
+        </label>
+        <br />
+        <input type="submit" value="Save Changes" />
+      </form>
+    </div>
   );
 };
 
 export default EditProfile;
+
+

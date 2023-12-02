@@ -29,7 +29,7 @@
 }
 
 .edit-profile-form input {
-    width: 100%;
+    width: 200px;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
@@ -55,4 +55,21 @@
 
 .edit-profile-button:hover {
     background-color: var(--secondary-color);
+}
+
+.edit-profile-form button {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.edit-profile-form button:hover {
+    background-color: var(--tertiary-color);
 }

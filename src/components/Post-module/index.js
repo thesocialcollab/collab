@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, query, collection, where, getDocs, deleteDoc, addDoc, getDoc } from "firebase/firestore";
+import { getFirestore, query, collection, onSnapshot, where, getDocs, deleteDoc, addDoc, getDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { auth } from '../../firebase';
@@ -16,10 +16,23 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
 
     const [likeCount, setLikeCount] = useState(0); // State to store the count of likes
     const [username, setUsername] = useState('');
+    const [commentCount, setCommentCount] = useState(0);
 
     let navigate = useNavigate();
 
 
+    // Retrieve comment count
+    useEffect(() => {
+        const commentsRef = collection(db, 'posts', post.id, 'comments');
+        const unsubscribe = onSnapshot(commentsRef, (snapshot) => {
+          setCommentCount(snapshot.size);
+        });
+      
+        // Cleanup function
+        return () => unsubscribe();
+      }, [db, post.id]);
+
+    // Retrieve username
     useEffect(() => {
         const fetchUsername = async () => {
           const userDoc = await getDoc(doc(db, 'users', post.userId));
@@ -37,6 +50,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
         setActiveDropdown(activeDropdown === postId ? null : postId);
     };
 
+    // Delete post and associated file from Firebase Storage
     const handleDeletePost = async (postId) => {
         if (!auth.currentUser) {
             console.error("User not authenticated!");
@@ -73,7 +87,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
         }
     };
     
-
+    // Like/unlike a post
     const toggleLike = async (postId) => {
         if (!auth.currentUser) {
             console.error("User not authenticated!");
@@ -125,7 +139,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
     };
     
 
-
+    // Toggle comments
     const toggleComments = () => {
         setShowComments(!showComments);
     };
@@ -196,7 +210,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                 </div>
                     {/* View Comments Button */}
                     <button className="view-comments-btn" onClick={toggleComments}>
-                        {showComments ? "Hide Comments" : "View Comments"}
+                        {showComments ? "Hide Comments" : `View Comments (${commentCount})`}
                     </button>
 
                 <div className='comments-container'>
