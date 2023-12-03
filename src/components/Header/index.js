@@ -28,6 +28,7 @@ function Header({ user }) {
   return (
     <div className="header">
       <Logo onLogoClick={handleLogoClick}/>
+      <img src='./images/icons/notification.png' alt='notification-icon' className='header-notification-icon' />
       {user && <p>{user.username}</p>}
       <Profile image={image} onProfileClick={handleProfileClick} />
     </div>
