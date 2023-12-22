@@ -202,7 +202,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
                 <div className='likes'>
                     {likeCount >= 1 && <span>{likeCount}</span>} {/* Conditionally display like count */}
                     <img 
-                    src={`${likedPosts.includes(post.id) ? './images/icons/heartfilled.png' : './images/icons/heart.png'}`} 
+                    src={`${likedPosts.includes(post.id) ? './images/icons/pinfilled.png' : './images/icons/pin1.png'}`} 
                     alt="heart" 
                     onClick={() => toggleLike(post.id)} 
                     className={`like-button${likedPosts.includes(post.id) ? ' liked' : ''}`} 

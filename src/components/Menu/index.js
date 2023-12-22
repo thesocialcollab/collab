@@ -18,7 +18,7 @@ function Menu() {
     return (
         <div className="menu-container">
             <div className={`menu-item ${isActive("/liked")}`} onClick={() => handleMenuClick("/liked")}>
-                <img src="./images/icons/homeheart.png" alt="Liked" className="icon"/>
+                <img src="./images/icons/pinfilled.png" alt="Liked" className="icon"/>
             </div>
             <div className={`menu-item ${isActive("/")}`} onClick={() => handleMenuClick("/")}>
                 <img src="./images/icons/homehouse.png" alt="Home" className="icon"/>

@@ -28,6 +28,7 @@ img.like-button {
     border-radius: 4px;
     cursor: pointer;
     float: right; /* Align to the right */
+    filter: brightness(0) invert(1) saturate(0);
     transition: transform 0.2s, background-color 0.3s; /* Added transition */
 }
 

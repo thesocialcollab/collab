@@ -43,7 +43,7 @@ const LikedPosts = () => {
 
     return (
         <div className="liked-posts-container">
-            <h1>Liked Posts</h1>
+            <h1>Pinned Posts</h1>
             {allPosts.map((post) => (
                 <Posts key={post.id} 
                        post={post} 
