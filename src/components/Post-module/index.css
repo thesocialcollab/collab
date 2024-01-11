@@ -76,6 +76,18 @@ img.like-button:focus {
     transition: background-color;  /* Smooth transition */
 }
 
+/* options button */
+.post-options-icon {
+ /*filter image to white*/
+    filter: brightness(0) invert(1) saturate(0);
+
+
+}
+
+.post-options-icon:hover {
+    cursor: pointer;
+}
+
 .dropdown-container {
     position: relative;
     display: inline-block;

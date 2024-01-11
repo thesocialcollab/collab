@@ -175,7 +175,7 @@ const Posts = ({ post, setPosts, likedPosts, setLikedPosts }) => {
             <div className='post-banner'>
                 <h3 className="post-username" onClick={handleProfile}>{username}</h3>
                 <div className="dropdown-container">
-                    <button onClick={() => handleDropdownToggle(post.id)}>...</button>
+                    <img onClick={() => handleDropdownToggle(post.id)} src="./images/icons/3dots.png" className="post-options-icon" width="30px" alt="Dropdown" />
                     <div className={`dropdown-menu ${activeDropdown === post.id ? 'active' : ''}`}>
                         {userId === post.userId && (
                             <PostDropdown onDelete={() => handleDeletePost(post.id)} />
