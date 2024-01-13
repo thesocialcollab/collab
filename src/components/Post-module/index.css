@@ -90,14 +90,14 @@ img.like-button:focus {
 
 .dropdown-container {
     position: relative;
-    display: inline-block;
 }
 
 .dropdown-menu {
     position: absolute;
     background-color: var(--secondary-color);
     top: 100%;
-    left: 0;
+    left: auto;
+    right: -15px;
     z-index: 1000;
     display: none; /* Hidden by default */
 }

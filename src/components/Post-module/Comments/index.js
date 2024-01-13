@@ -6,8 +6,14 @@ import './index.css';
 const Comments = ({ postId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const [isPrivate, setIsPrivate] = useState(false);
     const db = getFirestore();
     const [userId, setUserId] = useState(null);
+
+    const [showPrivate, setShowPrivate] = useState(false);
+
+    const privateComments = comments.filter(comment => comment.isPrivate && comment.userId === userId);
+    const publicComments = comments.filter(comment => !comment.isPrivate || comment.userId !== userId);
 
     useEffect(() => {
         if (auth.currentUser) {
@@ -54,9 +60,11 @@ const Comments = ({ postId }) => {
             await addDoc(collection(db, "posts", postId, "comments"), {
                 text: newComment,
                 userId: userId,
+                isPrivate: isPrivate,
                 timestamp: new Date()
             });
             setNewComment("");
+            setIsPrivate(false);
             fetchComments();
         } catch (error) {
             console.error("Error adding comment:", error);
@@ -65,6 +73,11 @@ const Comments = ({ postId }) => {
 
     return (
         <div className="comments-container">
+
+            <button onClick={() => setShowPrivate(!showPrivate)}>
+                {showPrivate ? "Private Comments" : "Public Comments"} 
+            </button>
+
             <form onSubmit={handleCommentSubmit}>
                 <input 
                     type="text" 
@@ -72,13 +85,35 @@ const Comments = ({ postId }) => {
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..." 
                 />
+                <input
+                    type="checkBox"
+                    value={isPrivate}
+                    onChange={(e) => setIsPrivate(e.target.checked)}
+                 />
+                 <label for="private">Private</label>
                 <button type="submit">➤</button>
             </form>
-            {comments.map(comment => (
+
+
+            {showPrivate ? (
+                privateComments.map(comment => (
+                    <div key={comment.id} className="comment">
+                        <p><strong>{comment.username}</strong>: {comment.text}</p>
+                    </div>
+                ))
+            ) : (
+                publicComments.map(comment => (
+                    <div key={comment.id} className="comment">
+                        <p><strong>{comment.username}</strong>: {comment.text}</p>
+                    </div>
+                ))
+
+            )}
+            {/** {comments.map(comment => (
                 <div key={comment.id} className="comment">
                     <p><strong>{comment.username}</strong>: {comment.text}</p>
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 };
