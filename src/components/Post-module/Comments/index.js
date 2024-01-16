@@ -74,10 +74,6 @@ const Comments = ({ postId }) => {
     return (
         <div className="comments-container">
 
-            <button onClick={() => setShowPrivate(!showPrivate)}>
-                {showPrivate ? "Private Comments" : "Public Comments"} 
-            </button>
-
             <form onSubmit={handleCommentSubmit}>
                 <input 
                     type="text" 
@@ -90,10 +86,17 @@ const Comments = ({ postId }) => {
                     value={isPrivate}
                     onChange={(e) => setIsPrivate(e.target.checked)}
                  />
-                 <label for="private">Private</label>
+                 <label for="private">🔒</label>
                 <button type="submit">➤</button>
             </form>
 
+            <label className="switch">
+                <input type="checkbox" checked={showPrivate} onChange={() => setShowPrivate(!showPrivate)} />
+                <span className="slider round">
+                    <span className="slider-text">Public</span>
+                    <span className="slider-text">Private</span>
+                </span>
+            </label>
 
             {showPrivate ? (
                 privateComments.map(comment => (
