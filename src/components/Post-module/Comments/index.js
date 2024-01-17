@@ -74,20 +74,34 @@ const Comments = ({ postId }) => {
     return (
         <div className="comments-container">
 
-            <form onSubmit={handleCommentSubmit}>
+            <form className="comment-input-container" onSubmit={handleCommentSubmit}>
                 <input 
+                    className="comment-input"
                     type="text" 
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..." 
                 />
-                <input
-                    type="checkBox"
-                    value={isPrivate}
-                    onChange={(e) => setIsPrivate(e.target.checked)}
-                 />
-                 <label for="private">🔒</label>
-                <button type="submit">➤</button>
+                <div className="comment-options">
+                    <button
+                        className="lock-button"
+                        style={{backgroundColor: isPrivate ? "red" : "green"}}
+                        onClick={(e) => { 
+                            e.preventDefault();
+                            setIsPrivate(!isPrivate);
+                        
+                        }}
+                    >
+                        <img src="./images/icons/lock.png" alt="lock"></img>
+                    </button>
+                    {/*<input
+                        type="checkBox"
+                        value={isPrivate}
+                        onChange={(e) => setIsPrivate(e.target.checked)}
+                    />
+                    <img src="./images/icons/lock.png" alt="lock"></img>*/}
+                    <button className="submit-button" type="submit">➤</button>
+                </div>
             </form>
 
             <label className="switch">

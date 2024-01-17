@@ -109,7 +109,7 @@ img.like-button:focus {
 
 
 
-.post-footer button {
+.view-comments-btn {
     background-color: transparent;
     border: none;
     color: var(--font-color);

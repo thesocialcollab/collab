@@ -1,14 +1,16 @@
 @import '../../../colors.css';
 
-.comments-container form {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    gap: 10px;
-    margin-bottom: 20px;
+
+.comment-input-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 75%;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.comments-container input[type="text"] {
+.comment-input[type="text"] {
     flex-grow: 1;
     padding: 10px 15px;
     border: 2px solid #d1d1d1;
@@ -18,27 +20,69 @@
     transition: border-color 0.3s;
 }
 
-.comments-container input[type="text"]:focus {
+.comment-input[type="text"]:focus {
     outline: none;
     border-color: #ff6a00; /* Highlight color when focused */
 }
 
-.comments-container button[type="submit"] {
+.submit-button[type="submit"] {
     display: flex;
     padding: 5px 10px;
-    background-color: var(--secondary-color);
+    background-color: #ff6a00;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.comments-container button[type="submit"]:hover {
-    background-color: var(--primary-color);
+.submit-button[type="submit"]:hover {
+    background-color: #ff6a00;
 }
 
+.comment-options {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    align-items: center;
+}
+
+@media (max-width: 400px) {
+  .comment-options {
+      right: -50px; /* Adjust this value as needed */
+  }
+}
+
+.lock-button img {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1) saturate(0);
+
+}
+
+/*lock button*/
+.lock-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: none;
+  height: 25px;
+  width: 30px;
+  margin: 0 auto;
+  padding: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  
+}
 
 /* slider */
 .switch {
@@ -46,6 +90,7 @@
     display: inline-block;
     width: 120px;
     height: 34px;
+    margin-bottom: 10px;
   }
   
   .switch input {
@@ -57,6 +102,7 @@
   .slider {
     position: absolute;
     cursor: pointer;
+    outline: none;
     top: 0;
     left: 0;
     right: 0;
